@@ -1,0 +1,21 @@
+#操作系统自动生成的文件
+.DS_Store
+Thumbs.db
+
+#编辑器/IDE 配置文件
+.vscode/
+.idea/
+
+#日志与临时文件
+*.log
+*.tmp
+
+#依赖包目录
+node_modules/
+
+#包含敏感信息的配置文件
+.env
+
+#编译打包输出的目录
+dist/
+build/
