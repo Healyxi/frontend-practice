@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>云南大学易班团队报名</title>
+</head>
+<body>
+    <header>
+        <h1>云南大学易班团队报名</h1>
+        <p>欢迎加入易班团队，请填写下方信息完成报名</p>
+    </header>
+    <nav>
+        <a href="#intro">团队介绍</a>
+        <a href="#form">开始报名</a>
+    </nav>
+    <main>
+        <section id="intro">
+            <h2>团队介绍</h2>
+            <p>云南大学易班团队致力于服务全校师生，提供网络思政、校园资讯与生活服务。期待你的加入！</p>
+        </section>
+        <section id="form">
+            <h2>报名信息表</h2>
+            <p><form action="#" method="get">
+                <p>
+                    <label for="name">姓名 (必填):</label>
+                    <input type="text" id="name" name="name" placeholder="请输入真实姓名" required>
+                </p>
+                <p>
+                    <label for="mail">邮箱 (必填):</label>
+                    <input type="email" id="mail" name="mail" placeholder="example@mail.com" required>
+                </p>
+                <p>
+                    <label for="age">年龄:</label>
+                    <input type="number" id="age" name="age" min="18" max="100" placeholder="18-100">
+                </p>
+                <p>
+                    <label for="birthdate">出生日期:</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </p>
+                <p>
+                    <label for="grade">年级:</label>
+                    <select id="grade" name="grade">
+                        <option value="">请选择</option>
+                        <option value="freshman">大一</option>
+                        <option value="sophomore">大二</option>
+                        <option value="junior">大三</option>
+                    </select>
+                </p>
+                <p>性别</p>
+                <p>
+                    <label><input type="radio" name="gender" value="male" checked> 男</label>
+                    <label><input type="radio" name="gender" value="female"> 女</label>
+                </p>
+                <p>兴趣方向 (可多选)</p>
+                <p>
+                    <label><input type="checkbox" name="interest" value="tech"> 技术部</label>
+                    <label><input type="checkbox" name="interest" value="design"> 创编部</label>
+                    <label><input type="checkbox" name="interest" value="operation"> 策划部</label>
+                </p>
+                <p>
+                    <label for="resume">上传简历 (PDF):</label>
+                    <input type="file" id="resume" name="resume" accept=".pdf">
+                </p>
+                <p>
+                    <label for="introtext">自我介绍:</label>
+                    <textarea id="introtext" name="introtext" rows="4" maxlength="200" placeholder="不超过200字"></textarea>
+                </p>
+                <p>
+                    <button type="submit">提交报名</button>
+                </p>
+            </form></p>
+        </section>
+    </main>
+    <footer>
+        <p>云南大学易班团队</p>
+    </footer>
+</body>
+</html>
