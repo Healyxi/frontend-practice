@@ -28,3 +28,27 @@ body {
     text-decoration: none;
     color: #0d6efd;
 }
+
+/* 卡片网格布局 */
+.card-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+/* 单个卡片样式 */
+.course-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+/* 大屏幕下增大卡片内边距 */
+@media (min-width: 992px) {
+    .course-card {
+        padding: 24px;
+    }
+}
