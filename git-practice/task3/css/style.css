@@ -52,3 +52,7 @@ body {
         padding: 24px;
     }
 }
+/* 覆盖示例：让卡片标题统一品牌色 */ 
+.card .card-title { 
+    color: #0b5ed7;
+}
