@@ -271,8 +271,7 @@ document.getElementById('record-list').addEventListener('click', (event) => {
 });
 
 document.getElementById('search-input').addEventListener('input', (event) => {
-  keyword = event.target.value.trim().toLowerCase();
-  render();
-});
-
+keyword = event.target.value.trim().toLowerCase();
+render();
+})
 render();
