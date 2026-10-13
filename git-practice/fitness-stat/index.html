@@ -34,11 +34,16 @@
         </div>
         <div>
             <button type="submit" id="submit-btn">添加记录</button>
+            <button type="button" id="cancel-btn" hidden>取消修改</button>
         </div>
         <p id="form-error" class="error" hidden></p>
     </form>
 
     <h2>训练记录</h2>
+    <p>
+        搜索
+        <input type="search" id="search-input" placeholder="按动作或日期筛选">
+    </p>
     <p id="notice"></p>
     <ul id="record-list" class="record-list"></ul>
     <p id="empty-tip" hidden></p>
