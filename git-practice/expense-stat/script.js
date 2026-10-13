@@ -21,6 +21,17 @@ const isValidExpense = (record) => {
 
 const cleanExpenses = (list) => list.filter(isValidExpense);
 
+const findInvalid = (list) => list.filter((record) => !isValidExpense(record));
+
+//说明一条账目为什么非法
+const invalidReason = (record) => {
+  if (record === null || typeof record !== 'object') return '记录不是对象';
+  if (typeof record.amount !== 'number' || !Number.isFinite(record.amount)) return '金额不是数字';
+  if (record.amount <= 0) return '金额必须是正数';
+  if (typeof record.category !== 'string' || record.category.trim() === '') return '缺少分类';
+  return '格式不符合要求';
+};
+
 const totalAmount = (list) => list.reduce((sum, record) => sum + record.amount, 0);
 
 const sumByCategory = (list) => list.reduce((summary, record) => {
@@ -35,11 +46,55 @@ const maxExpense = (list) => (list.length === 0
   ? null
   : list.reduce((max, record) => (record.amount > max.amount ? record : max)));
 
-const validExpenses = cleanExpenses(expenses);
+//统一保留两位小数
+const toMoney = (value) => value.toFixed(2);
 
-console.log('原始账本 ' + expenses.length + ' 条，清洗后剩 ' + validExpenses.length + ' 条');
-console.table(validExpenses);
-console.log('总支出：', totalAmount(validExpenses));
-console.log('平均每笔：', averageAmount(validExpenses));
-console.log('分类汇总：', sumByCategory(validExpenses));
-console.log('最大单笔：', maxExpense(validExpenses));
+const formatExpense = (record) => `  ${record.category.trim()}：${record.item}：${toMoney(record.amount)} 元`;
+
+const formatCategory = ([category, amount]) => `  ${category}：${toMoney(amount)} 元`;
+
+//把被忽略的记录格式化成提示
+const describeInvalid = (record) => {
+  const name = (record && typeof record === 'object' && record.item) ? record.item : '未知记录';
+  return `  ${name}：${invalidReason(record)}`;
+};
+
+//汇总成一份完整报告
+const buildReport = (list) => {
+  const lines = [];
+  const valid = cleanExpenses(list);
+  const invalid = findInvalid(list);
+
+  lines.push(`账目总数 ${list.length} 条（有效 ${valid.length} 条，忽略 ${invalid.length} 条）`);
+  if (invalid.length > 0) {
+    lines.push('被忽略的非法记录：');
+    lines.push(...invalid.map(describeInvalid));
+  }
+  if (valid.length === 0) {
+    lines.push('没有有效账目，无法统计。');
+    return lines.join('\n');
+  }
+
+  const top = maxExpense(valid);
+  lines.push(`总支出：${toMoney(totalAmount(valid))} 元`);
+  lines.push(`平均每笔：${toMoney(averageAmount(valid))} 元`);
+  lines.push(`最大单笔：${top.item}（${top.category.trim()}）${toMoney(top.amount)} 元`);
+
+  lines.push('分类汇总（从多到少）：');
+  lines.push(...Object.entries(sumByCategory(valid))
+    .sort((a, b) => b[1] - a[1])
+    .map(formatCategory));
+
+  lines.push('消费明细：');
+  lines.push(...valid.map(formatExpense));
+  return lines.join('\n');
+};
+
+//兜底
+try {
+  console.log('原始账本：');
+  console.table(expenses);
+  console.log(buildReport(expenses));
+} catch (error) {
+  console.error('统计失败：', error.message);
+}
