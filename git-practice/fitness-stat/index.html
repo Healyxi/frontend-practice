@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健身记录本</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>健身记录本</h1>
+    <p>记下每次训练的动作、组数、次数和重量。</p>
+
+    <h2 id="form-title">添加训练记录</h2>
+    <form id="record-form">
+        <div class="field">
+            <label for="date">训练日期</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <div class="field">
+            <label for="exercise">动作名称</label>
+            <input type="text" id="exercise" name="exercise" placeholder="例如：深蹲">
+        </div>
+        <div class="field">
+            <label for="sets">组数</label>
+            <input type="text" id="sets" name="sets" placeholder="例如：4">
+        </div>
+        <div class="field">
+            <label for="reps">每组次数</label>
+            <input type="text" id="reps" name="reps" placeholder="例如：12">
+        </div>
+        <div class="field">
+            <label for="weight">重量（kg）</label>
+            <input type="text" id="weight" name="weight" placeholder="例如：60">
+        </div>
+        <div>
+            <button type="submit" id="submit-btn">添加记录</button>
+        </div>
+        <p id="form-error" class="error" hidden></p>
+    </form>
+
+    <h2>训练记录</h2>
+    <p id="notice"></p>
+    <ul id="record-list" class="record-list"></ul>
+    <p id="empty-tip" hidden></p>
+    <p>当前列表 <span id="stat-count">0</span> 条 - 累计训练量 <span id="stat-volume">0</span> kg</p>
+
+    <script src="app.js"></script>
+</body>
+</html>
