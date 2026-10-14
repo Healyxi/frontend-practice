@@ -100,3 +100,7 @@ window.addEventListener('resize', () => {
 });
 
 loadData();
+
+$('#cards').on('click', '.card', function () {
+  $(this).toggleClass('border-primary shadow');
+});
