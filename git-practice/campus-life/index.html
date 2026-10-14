@@ -25,8 +25,25 @@
 
   <section class="row g-3 mb-4" id="cards"></section>
 
+  <section class="row g-3">
+    <div class="col-lg-6">
+      <h2 class="h5">各分类借阅量趋势</h2>
+      <p class="small text-muted">ECharts 折线图 · 单位：册 · 数据来源：data/books.json</p>
+      <div id="line-chart" class="chart-box"></div>
+    </div>
+    <div class="col-lg-6">
+      <h2 class="h5">自习室上座率排行</h2>
+      <p class="small text-muted">Chart.js 条形图 · 单位：% · 数据来源：data/studyrooms.json</p>
+      <div class="chart-box">
+        <canvas id="bar-chart"></canvas>
+      </div>
+    </div>
+  </section>
+
   <script src="libs/jquery-3.7.1.min.js"></script>
   <script src="libs/bootstrap.bundle.min.js"></script>
+  <script src="libs/echarts.min.js"></script>
+  <script src="libs/chart.umd.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

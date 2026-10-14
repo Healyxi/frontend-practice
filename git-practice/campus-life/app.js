@@ -3,6 +3,10 @@ const state = {
   rooms: null
 };
 
+let lineChart = null;
+
+let barChart = null;
+
 const monthTotals = () => state.books.months.map((month, index) => {
   let total = 0;
   state.books.series.forEach(s => {
@@ -33,6 +37,8 @@ const peakMonth = () => {
 };
 
 const openRooms = () => state.rooms.rooms.filter(room => room.status === '开放');
+
+const rate = (room) => Math.round(room.occupied / room.seats * 100);
 
 const overallRate = () => {
   const rooms = openRooms();
@@ -90,6 +96,57 @@ const renderCards = () => {
   `);
 };
 
+const renderLineChart = () => {
+  if (lineChart !== null) {
+    lineChart.dispose();
+  }
+  lineChart = echarts.init(document.querySelector('#line-chart'));
+  lineChart.setOption({
+    title: { text: '各分类借阅量（单位：册）', left: 'center' },
+    tooltip: { trigger: 'axis' },
+    legend: { bottom: 0 },
+    xAxis: { type: 'category', data: state.books.months },
+    yAxis: { name: '册' },
+    series: state.books.series.map(s => ({
+      name: s.category,
+      type: 'line',
+      smooth: true,
+      data: s.counts
+    }))
+  });
+};
+
+const renderBarChart = () => {
+  if (barChart !== null) {
+    barChart.destroy();
+  }
+  const rooms = state.rooms.rooms.slice().sort((a, b) => rate(b) - rate(a));
+
+  barChart = new Chart(document.querySelector('#bar-chart'), {
+    type: 'bar',
+    data: {
+      labels: rooms.map(room => room.name),
+      datasets: [{
+        label: '上座率（%）',
+        data: rooms.map(room => rate(room)),
+        backgroundColor: rooms.map(room => room.status === '开放' ? '#2563eb' : '#cbd5e1')
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: { display: true, text: '自习室上座率（单位：%）' },
+        legend: { display: false }
+      },
+      scales: {
+        x: { max: 100 }
+      }
+    }
+  });
+};
+
 const loadData = async () => {
   $('#status').text('加载中...').show();
 
@@ -114,9 +171,15 @@ const loadData = async () => {
     $('#status').hide();
 
     renderCards();
+    renderLineChart();
+    renderBarChart();
   } catch (error) {
     $('#status').removeClass('alert-warning').addClass('alert-danger').text('加载失败：' + error.message).show();
   }
 };
+
+window.addEventListener('resize', () => {
+  if (lineChart) lineChart.resize();
+});
 
 loadData();
