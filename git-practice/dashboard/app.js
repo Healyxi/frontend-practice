@@ -2,6 +2,8 @@ const state = {
   data: null
 };
 
+let barChart = null;
+
 const loadData = async () => {
   $('#status').text('加载中...').show();
 
@@ -21,8 +23,7 @@ const loadData = async () => {
     $('#status').hide();
 
     renderCards(data);
-    // 第二步（ECharts柱状图）写好 renderBarChart 后，删掉下面这行的注释：
-    // renderBarChart(data);
+    renderBarChart(data);
     // 第三步（Chart.js折线图）写好 renderLineChart 后，删掉下面这行的注释：
     // renderLineChart(data);
   } catch (error) {
@@ -47,6 +48,24 @@ const renderCards = (data) => {
         </div>
       </div>
     `);
+  });
+};
+
+const renderBarChart = (data) => {
+  if (barChart === null) {
+    barChart = echarts.init(document.querySelector('#bar-chart'));
+  }
+  barChart.setOption({
+    title: { text: '各月各品类借阅量', left: 'center' },
+    tooltip: { trigger: 'axis' },
+    legend: { bottom: 0 },
+    xAxis: { data: data.months },
+    yAxis: { name: '册' },
+    series: data.series.map(s => ({
+      name: s.category,
+      type: 'bar',
+      data: s.counts
+    }))
   });
 };
 
