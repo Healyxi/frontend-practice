@@ -1,6 +1,8 @@
 const state = {
   books: null,
-  rooms: null
+  rooms: null,
+  category: '全部',
+  openOnly: true
 };
 
 let lineChart = null;
@@ -62,7 +64,7 @@ const renderCards = () => {
         <div class="card-body">
           <h3 class="card-title h6">借阅总量</h3>
           <p class="card-text fs-4">${total}</p>
-          <p class="card-text small text-muted">册 · 共${state.books.months.length}个月</p>
+          <p class="card-text small text-muted">册 共${state.books.months.length}个月</p>
         </div>
       </div>
     </div>
@@ -89,17 +91,26 @@ const renderCards = () => {
         <div class="card-body">
           <h3 class="card-title h6">开放自习室上座率</h3>
           <p class="card-text fs-4">${overallRate()}%</p>
-          <p class="card-text small text-muted">${openRooms().length}间开放 · 共${state.rooms.rooms.length}间</p>
+          <p class="card-text small text-muted">${openRooms().length}间开放 共${state.rooms.rooms.length}间</p>
         </div>
       </div>
     </div>
   `);
 };
 
+const fillCategory = () => {
+  const options = ['全部'].concat(state.books.series.map(s => s.category));
+  $('#category').html(options.map(name => `<option>${name}</option>`).join(''));
+};
+
 const renderLineChart = () => {
   if (lineChart !== null) {
     lineChart.dispose();
   }
+  const series = state.category === '全部'
+    ? state.books.series
+    : state.books.series.filter(s => s.category === state.category);
+
   lineChart = echarts.init(document.querySelector('#line-chart'));
   lineChart.setOption({
     title: { text: '各分类借阅量（单位：册）', left: 'center' },
@@ -107,7 +118,7 @@ const renderLineChart = () => {
     legend: { bottom: 0 },
     xAxis: { type: 'category', data: state.books.months },
     yAxis: { name: '册' },
-    series: state.books.series.map(s => ({
+    series: series.map(s => ({
       name: s.category,
       type: 'line',
       smooth: true,
@@ -120,7 +131,9 @@ const renderBarChart = () => {
   if (barChart !== null) {
     barChart.destroy();
   }
-  const rooms = state.rooms.rooms.slice().sort((a, b) => rate(b) - rate(a));
+  const rooms = (state.openOnly ? openRooms() : state.rooms.rooms)
+    .slice()
+    .sort((a, b) => rate(b) - rate(a));
 
   barChart = new Chart(document.querySelector('#bar-chart'), {
     type: 'bar',
@@ -171,6 +184,7 @@ const loadData = async () => {
     $('#status').hide();
 
     renderCards();
+    fillCategory();
     renderLineChart();
     renderBarChart();
   } catch (error) {
@@ -180,6 +194,20 @@ const loadData = async () => {
 
 window.addEventListener('resize', () => {
   if (lineChart) lineChart.resize();
+});
+
+$('#category').on('change', function () {
+  state.category = $(this).val();
+  renderLineChart();
+});
+
+$('#open-only').on('change', function () {
+  state.openOnly = $(this).prop('checked');
+  renderBarChart();
+});
+
+$('#cards').on('click', '.card', function () {
+  $(this).toggleClass('border-primary shadow');
 });
 
 loadData();
