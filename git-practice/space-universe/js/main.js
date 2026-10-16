@@ -92,12 +92,34 @@ planetData.forEach((data, i) => {
   planets.push(entry);
 });
 
+const clock = new THREE.Clock();
+let paused = false;
+
 const animate = () => {
   requestAnimationFrame(animate);
+  const dt = clock.getDelta();
+
+  if (!paused) {
+    planets.forEach(({ pivot, planet, speed, moonPivot }) => {
+      pivot.rotation.y += speed * dt;
+      planet.rotation.y += 1.5 * dt;
+      if (moonPivot) moonPivot.rotation.y += 3 * dt;
+    });
+
+    stars.rotation.y += 0.03 * dt;
+  }
+
   controls.update();
   renderer.render(scene, camera);
 };
 animate();
+
+//空格键暂停/继续功能的实现
+window.addEventListener('keydown', (event) => {
+  if (event.code !== 'Space') return;
+  event.preventDefault();
+  paused = !paused;
+});
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
