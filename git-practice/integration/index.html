@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>迷你版校园信息中心</title>
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">校园信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rooms">自习室</a></li>
+          <li class="nav-item"><a class="nav-link" href="#stats">统计</a></li>
+          <li class="nav-item"><a class="nav-link" href="three-d/scene.html">校园三维</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="py-5 bg-light">
+    <div class="container">
+      <h1 class="h2">迷你版校园公共信息与数据展示中心</h1>
+      <p class="lead text-muted">课堂八案例复现：把前七次课的成果组装成一个综合作品原型。</p>
+
+      <div class="row g-3 mt-2">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 card-title">自习室查询</h2>
+              <p class="card-text small text-muted">按楼层与开放状态筛选自习室。</p>
+              <a class="btn btn-sm btn-primary" href="#rooms">进入查看</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 card-title">使用统计</h2>
+              <p class="card-text small text-muted">从data.json加载数据，用柱状图展示使用量。</p>
+              <a class="btn btn-sm btn-primary" href="#stats">进入查看</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <h2 class="h5 card-title">校园三维</h2>
+              <p class="card-text small text-muted">Three.js搭建的校园地标三维导览。</p>
+              <a class="btn btn-sm btn-primary" href="three-d/scene.html">进入查看</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms" class="py-5">
+    <div class="container">
+      <h2 class="h4 mb-3">自习室查询</h2>
+      <p class="text-muted mb-0">模块2占位区：筛选与列表将在第2次提交中完成。</p>
+    </div>
+  </section>
+
+  <section id="stats" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="h4 mb-3">使用统计</h2>
+      <p class="text-muted mb-0">模块3占位区：图表将在第2次提交中完成。</p>
+    </div>
+  </section>
+
+  <footer class="py-4 border-top">
+    <div class="container small text-muted">
+      课程案例复现 迷你版校园信息中心 数据为课堂模拟数据
+    </div>
+  </footer>
+  <script src="libs/bootstrap.bundle.min.js"></script>
+</body>
+</html>

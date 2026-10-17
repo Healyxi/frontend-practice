@@ -1,0 +1,12 @@
+html { scroll-behavior: smooth; }
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.chart-box { height: 360px; }
+
+#status { display: none; }
