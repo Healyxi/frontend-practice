@@ -3,60 +3,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校园三维导览</title>
+  <title>三维校园 校园自习室信息中心</title>
   <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../libs/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/style.css">
   <script src="libs/aframe.min.js"></script>
-  <style>
-    html, body { height: 100%; margin: 0; }
-    body { font-family: system-ui, "Microsoft YaHei", sans-serif; }
-
-    #hud {
-      position: fixed; left: 16px; top: 16px; z-index: 9999;
-      background: rgba(31, 45, 61, .85); color: #fff;
-      padding: 12px 16px; border-radius: 10px; max-width: 240px;
-    }
-    #hud h1 { font-size: 16px; margin: 0 0 6px; }
-    #hud p { font-size: 12px; margin: 0 0 10px; color: #cbd5e1; }
-    #hud a { color: #7fd1ff; font-size: 13px; text-decoration: none; }
-
-    @media (max-width: 575px) {
-      #hud { left: 8px; right: 8px; bottom: 8px; top: auto; max-width: none; padding: 10px 12px; }
-      #hud p { margin-bottom: 6px; }
-    }
-  </style>
 </head>
-<body>
-  <div id="hud">
-    <h1>校园三维导览</h1>
-    <p>按住鼠标拖动转视角 W A S D 移动</p>
-    <a href="../rooms.html">← 返回自习室列表</a>
-  </div>
+<body class="scene-page">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="../index.html">校园自习室信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="../rooms.html">自习室</a></li>
+          <li class="nav-item"><a class="nav-link" href="../stats.html">统计</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="scene.html">三维校园</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-  <a-scene>
-    <a-sky color="#aee3f7"></a-sky>
-    <a-plane
-      position="0 0 -4" rotation="-90 0 0"
-      width="20" height="20" color="#7cb342">
-    </a-plane>
+  <main class="campus-scene-wrap">
+    <a-scene id="campusScene" embedded
+             fog="type: linear; color: #dff4ff; near: 18; far: 50">
+      <a-sky color="#dff4ff"></a-sky>
 
-    <a-box position="0 1.2 -6" width="4" height="2.4" depth="2" color="#efeeee"></a-box>
-    <a-box position="0 2.7 -6" width="4.4" height="0.4" depth="2.4" color="#b71c1c"></a-box>
+      <a-plane position="0 0 0" rotation="-90 0 0"
+               width="64" height="64" color="#93bd8b"></a-plane>
 
-    <a-cylinder position="3 1.8 -5" radius="0.05" height="3.6" color="#9e9e9e"></a-cylinder>
-    <a-box
-      position="3.35 3.3 -5" width="0.7" height="0.45" depth="0.03" color="#e53935"
-      animation="property: position; to: 3.4 3.3 -5; dir: alternate; dur: 900; loop: true">
-    </a-box>
+      <a-plane position="-6.4 0.02 5.5" rotation="-90 0 0"
+               width="2.4" height="12.5" color="#e9eef1"></a-plane>
 
-    <a-cylinder position="-3 1.2 -4" radius="0.06" height="2.4" color="#616161"></a-cylinder>
-    <a-sphere position="-3 2.5 -4" radius="0.18" color="#fff59d"
-              animation="property: scale; to: 1.3 1.3 1.3; dir: alternate; dur: 1200; loop: true">
-    </a-sphere>
-    <a-light type="point" position="-3 2.6 -4" color="#fff59d" intensity="0.6"></a-light>
+      <a-plane position="-6.4 0.03 -0.6" rotation="-90 0 0"
+               width="8" height="7" color="#dce5e7"></a-plane>
 
-    <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+      <a-entity id="campusBuildings"></a-entity>
 
-    <a-camera position="0 1.8 2"></a-camera>
-  </a-scene>
+      <a-entity id="cameraRig" position="0 1.65 11">
+        <a-camera id="mainCamera" fov="66"
+                  look-controls="pointerLockEnabled: false"
+                  wasd-controls="acceleration: 20">
+          <a-entity cursor="rayOrigin: mouse"
+                    raycaster="objects: .clickable; far: 100"></a-entity>
+        </a-camera>
+      </a-entity>
+
+      <a-light type="hemisphere" color="#ffffff"
+               ground-color="#77936f" intensity="0.95"></a-light>
+      <a-light type="directional" position="-7 13 9" intensity="0.65"></a-light>
+    </a-scene>
+
+    <section class="scene-hud" aria-labelledby="sceneTitle">
+      <p class="scene-kicker">3D CAMPUS GUIDE</p>
+      <h1 id="sceneTitle">呈贡校区三维导览</h1>
+      <p class="scene-help">
+        按住鼠标拖动旋转视角，使用 W A S D 或方向键移动，点击楼栋查看详情。
+      </p>
+
+      <div class="scene-code-list" aria-label="楼栋缩写说明">
+        <span><strong>LIB</strong> 图书馆</span>
+        <span><strong>INFO</strong> 信息学院</span>
+        <span><strong>NAN</strong> 楠苑宿舍</span>
+      </div>
+
+      <div class="scene-legend" aria-label="楼栋颜色说明">
+        <span><i class="legend-dot low"></i>空闲</span>
+        <span><i class="legend-dot middle"></i>较忙</span>
+        <span><i class="legend-dot high"></i>拥挤</span>
+        <span><i class="legend-dot neutral"></i>无数据</span>
+      </div>
+
+      <div class="scene-status" id="sceneStatus" aria-live="polite">
+        正在读取自习室数据并生成楼栋。
+      </div>
+
+      <a class="scene-back-link" href="../rooms.html">返回自习室列表</a>
+    </section>
+
+    <aside id="infoPanel" class="scene-info-panel" aria-live="polite" hidden>
+      <button type="button" id="closeInfo" class="scene-info-close" aria-label="关闭楼栋详情">
+        ×
+      </button>
+      <p class="scene-info-code" id="infoCode"></p>
+      <h2 id="infoTitle"></h2>
+      <div id="infoBody"></div>
+    </aside>
+
+    <p class="scene-note">三维模型为校园空间示意图，非精确测绘。</p>
+  </main>
+
+  <script src="../libs/bootstrap.bundle.min.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="scene.js"></script>
 </body>
 </html>
