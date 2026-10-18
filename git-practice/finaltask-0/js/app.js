@@ -1,6 +1,7 @@
 let rooms = [];
 let currentFilter = 'all';
 let keyword = '';
+let barChart = null;         // ECharts 实例，只初始化一次
 
 const list = document.querySelector('#room-list');
 const filters = document.querySelector('.filters');
@@ -66,9 +67,40 @@ const renderList = () => {
   });
 };
 
+// 柱状图：和列表用同一份筛选结果
+const renderBarChart = () => {
+  if (rooms.length === 0) return;
+
+  if (barChart === null) {
+    barChart = echarts.init(document.querySelector('#bar-chart'));
+  }
+
+  const shown = shownRooms();
+  // 手机宽度下标签太挤，竖起来并缩小字号
+  const narrow = document.querySelector('#bar-chart').clientWidth < 600;
+
+  barChart.setOption({
+    title: { text: '各自习室已占座位（单位：人）', left: 'center' },
+    tooltip: { trigger: 'axis' },
+    grid: { left: 60, right: 30, top: 60, bottom: narrow ? 130 : 90 },
+    xAxis: {
+      type: 'category',
+      data: shown.map(room => room.name),
+      axisLabel: { interval: 0, rotate: narrow ? 60 : 30, fontSize: narrow ? 8 : 10 }
+    },
+    yAxis: { type: 'value', name: '人' },
+    series: [{
+      name: '已占座位',
+      type: 'bar',
+      data: shown.map(room => room.occupied)
+    }]
+  });
+};
+
 const renderAll = () => {
   renderSummary();
   renderList();
+  renderBarChart();
 };
 
 const loadData = async () => {
@@ -87,6 +119,7 @@ const loadData = async () => {
     }
 
     rooms = data.rooms;
+    $('#data-source').text('数据来源：' + data.source + '  单位：人');
     $('#status').hide();
     renderAll();
   } catch (error) {
@@ -103,6 +136,13 @@ filters.addEventListener('click', (e) => {
 document.querySelector('#keyword').addEventListener('input', (e) => {
   keyword = e.target.value.trim();
   renderAll();
+});
+
+window.addEventListener('resize', () => {
+  if (barChart) {
+    barChart.resize();
+    renderBarChart();
+  }
 });
 
 loadData();

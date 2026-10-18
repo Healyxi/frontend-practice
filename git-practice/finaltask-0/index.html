@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>校园自习室信息中心</title>
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="libs/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">校园自习室信息中心</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -28,10 +29,10 @@
     </div>
   </nav>
 
-  <section id="home" class="py-5 home-block">
-    <div class="container text-white">
+  <section id="home" class="py-5 bg-light">
+    <div class="container">
       <h1 class="h2">校园自习室信息中心</h1>
-      <p class="text-white-50">作业五的筛选+作业六的看板+作业七的三维，整合成一个入口。</p>
+      <p class="text-muted">作业五的筛选+作业六的看板+作业七的三维，整合成一个入口。</p>
 
       <div class="row g-3 mt-3">
         <div class="col-md-4">
@@ -86,6 +87,15 @@
     </div>
   </section>
 
+  <section id="stats" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="h4 mb-3">使用统计</h2>
+      <p id="status" class="alert alert-warning"></p>
+      <div id="bar-chart" class="chart-box"></div>
+      <p class="small text-muted mt-2 mb-0" id="data-source"></p>
+    </div>
+  </section>
+
   <footer class="py-4 border-top">
     <div class="container small text-muted">
       软件开发综合实践 个人整合练习 数据为课堂模拟数据
@@ -94,6 +104,7 @@
 
   <script src="libs/bootstrap.bundle.min.js"></script>
   <script src="libs/jquery-3.7.1.min.js"></script>
+  <script src="libs/echarts.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,11 +1,22 @@
+/* 配色沿用之前作业：白底、#dee2e6 边框、Bootstrap 默认蓝 */
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: #333;
+}
+
 html { scroll-behavior: smooth; }
 
+/* 锚点跳转时标题不被吸顶导航挡住 */
 section[id] { scroll-margin-top: 4.5rem; }
 
+/* 图表容器必须有确定高度，否则 ECharts 画不出来 */
 .chart-box { height: 380px; }
 
+/* 加载提示默认隐藏，由 JS 控制显示 */
 #status { display: none; }
 
-.home-block { background: #1f2d3d; }
-
-.room-card { border: 1px solid #e2e8f0; }
+/* 自习室卡片边框，和 task3、feedback-form 保持一致 */
+.room-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
