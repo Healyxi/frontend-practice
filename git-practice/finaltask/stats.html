@@ -32,7 +32,9 @@
     <div class="container py-5">
       <p class="text-primary small fw-semibold text-uppercase mb-1">Data Dashboard</p>
       <h1 class="h2 fw-bold mb-2">数据统计</h1>
-      <p class="text-secondary mb-0">把借阅趋势与自习室上座率放在同一页比较。</p>
+      <p class="text-secondary mb-0">
+        用借阅趋势观察学习需求，用上座率排行比较自习室当前使用情况。
+      </p>
     </div>
   </header>
 
@@ -41,8 +43,17 @@
 
     <section class="row g-3 mb-4" id="cards" aria-label="数据摘要"></section>
 
-    <section class="card border mb-4">
+    <section class="card chart-control-card mb-4" aria-labelledby="chartControlTitle">
       <div class="card-body p-4">
+        <div class="d-flex flex-column flex-lg-row gap-3 justify-content-between align-items-lg-end mb-3">
+          <div>
+            <h2 class="h5 mb-1" id="chartControlTitle">图表控制</h2>
+            <p class="small text-secondary mb-0">
+              分类选择只影响折线图，开放状态开关只影响柱状图。
+            </p>
+          </div>
+        </div>
+
         <div class="row g-3 align-items-end">
           <div class="col-md-4">
             <label class="form-label small fw-semibold" for="category">折线图分类</label>
@@ -50,10 +61,13 @@
               <option value="全部">全部分类</option>
             </select>
           </div>
-          <div class="col-md-4">
+
+          <div class="col-md-5">
             <div class="form-check form-switch mb-2">
               <input class="form-check-input" type="checkbox" id="open-only" checked>
-              <label class="form-check-label small" for="open-only">柱状图只看开放自习室</label>
+              <label class="form-check-label small" for="open-only">
+                柱状图只显示开放中的自习室
+              </label>
             </div>
           </div>
         </div>
@@ -62,28 +76,78 @@
 
     <div class="row g-4">
       <div class="col-xl-7">
-        <section class="card h-100">
+        <section class="card chart-card h-100">
           <div class="card-body p-4">
-            <h2 class="h5 mb-1">各分类借阅量趋势</h2>
-            <p class="small text-secondary mb-3">ECharts 折线图 单位：册</p>
+            <div class="mb-3">
+              <h2 class="h5 mb-1">各分类借阅量趋势</h2>
+              <p class="small text-secondary mb-0">ECharts 折线图，单位：册</p>
+            </div>
+
             <div id="line-chart" class="chart-box" role="img"
                  aria-label="各分类借阅量随时间变化的折线图"></div>
+
+            <p class="chart-summary mt-3 mb-0" id="line-summary">
+              正在计算借阅数据。
+            </p>
           </div>
         </section>
       </div>
 
       <div class="col-xl-5">
-        <section class="card h-100">
+        <section class="card chart-card h-100">
           <div class="card-body p-4">
-            <h2 class="h5 mb-1">自习室上座率</h2>
-            <p class="small text-secondary mb-3">Chart.js 横向柱状图 单位：%</p>
-            <div class="chart-box chart-box--canvas">
-              <canvas id="roomBar" role="img" aria-label="各自习室上座率横向柱状图"></canvas>
+            <div class="mb-3">
+              <h2 class="h5 mb-1">自习室上座率</h2>
+              <p class="small text-secondary mb-0">Chart.js 横向柱状图，单位：%</p>
             </div>
+
+            <div class="chart-box chart-box--canvas">
+              <canvas id="roomBar" role="img"
+                      aria-label="各自习室上座率横向柱状图"></canvas>
+            </div>
+
+            <p class="chart-summary mt-3 mb-0" id="bar-summary">
+              正在计算自习室数据。
+            </p>
           </div>
         </section>
       </div>
     </div>
+
+    <section class="card chart-card mt-4" aria-labelledby="categoryTableTitle">
+      <div class="card-body p-4">
+        <div class="d-flex flex-column flex-md-row gap-2 justify-content-between mb-3">
+          <div>
+            <h2 class="h5 mb-1" id="categoryTableTitle">分类借阅量核对</h2>
+            <p class="small text-secondary mb-0">
+              此表与折线图使用同一份 JSON，可用于核对各分类年度合计。
+            </p>
+          </div>
+          <p class="small text-secondary mb-0">单位：册</p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm align-middle category-table mb-0">
+            <caption class="visually-hidden">各图书分类全年借阅量与占比</caption>
+            <thead>
+              <tr>
+                <th scope="col">分类</th>
+                <th scope="col" class="text-end">全年借阅量</th>
+                <th scope="col" class="text-end">占比</th>
+              </tr>
+            </thead>
+            <tbody id="category-table-body"></tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">总计</th>
+                <th class="text-end" id="category-table-total">0</th>
+                <th class="text-end">100%</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </section>
 
     <p class="small text-secondary mt-4 mb-0" id="chart-data-source"></p>
   </main>

@@ -117,6 +117,39 @@ html {
   position: relative;
 }
 
+.chart-card,
+.chart-control-card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.chart-summary {
+  padding: 11px 13px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  background: #f8f9fa;
+  color: #495057;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.category-table {
+  min-width: 460px;
+}
+
+.category-table thead th {
+  border-bottom-width: 1px;
+  color: #6c757d;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.category-table tfoot th {
+  border-top-width: 1px;
+  background: #f8f9fa;
+}
+
 #roomBar {
   width: 100% !important;
   height: 100% !important;
