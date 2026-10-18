@@ -2,10 +2,36 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>校园角标</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园三维导览</title>
+  <link rel="icon" href="data:,">
   <script src="libs/aframe.min.js"></script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body { font-family: system-ui, "Microsoft YaHei", sans-serif; }
+
+    #hud {
+      position: fixed; left: 16px; top: 16px; z-index: 9999;
+      background: rgba(31, 45, 61, .85); color: #fff;
+      padding: 12px 16px; border-radius: 10px; max-width: 240px;
+    }
+    #hud h1 { font-size: 16px; margin: 0 0 6px; }
+    #hud p { font-size: 12px; margin: 0 0 10px; color: #cbd5e1; }
+    #hud a { color: #7fd1ff; font-size: 13px; text-decoration: none; }
+
+    @media (max-width: 575px) {
+      #hud { left: 8px; right: 8px; bottom: 8px; top: auto; max-width: none; padding: 10px 12px; }
+      #hud p { margin-bottom: 6px; }
+    }
+  </style>
 </head>
 <body>
+  <div id="hud">
+    <h1>校园三维导览</h1>
+    <p>按住鼠标拖动转视角 W A S D 移动</p>
+    <a href="../index.html#rooms">← 返回自习室列表</a>
+  </div>
+
   <a-scene>
     <a-sky color="#aee3f7"></a-sky>
     <a-plane
