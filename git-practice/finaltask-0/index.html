@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园自习室信息中心</title>
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">校园自习室信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#home">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="#rooms">自习室</a></li>
+          <li class="nav-item"><a class="nav-link" href="#stats">统计</a></li>
+          <li class="nav-item"><a class="nav-link" href="three-d/scene.html">三维校园</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="py-5 home-block">
+    <div class="container text-white">
+      <h1 class="h2">校园自习室信息中心</h1>
+      <p class="text-white-50">作业五的筛选+作业六的看板+作业七的三维，整合成一个入口。</p>
+
+      <div class="row g-3 mt-3">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-muted small mb-1">自习室总数</p>
+              <p class="h3 mb-0" id="sum-total">—</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-muted small mb-1">开放中</p>
+              <p class="h3 mb-0" id="sum-open">—</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <p class="text-muted small mb-1">开放区剩余空座</p>
+              <p class="h3 mb-0" id="sum-free">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooms" class="py-5">
+    <div class="container">
+      <h2 class="h4 mb-3">自习室查询</h2>
+      <p class="text-muted mb-0">占位：第 2 块放筛选和列表。</p>
+    </div>
+  </section>
+
+  <section id="stats" class="py-5 bg-light">
+    <div class="container">
+      <h2 class="h4 mb-3">使用统计</h2>
+      <p class="text-muted mb-0">占位：第 3 块放柱状图。</p>
+    </div>
+  </section>
+
+  <footer class="py-4 border-top">
+    <div class="container small text-muted">
+      软件开发综合实践 个人整合练习 数据为课堂模拟数据
+    </div>
+  </footer>
+
+  <script src="libs/bootstrap.bundle.min.js"></script>
+</body>
+</html>

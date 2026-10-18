@@ -1,0 +1,11 @@
+html { scroll-behavior: smooth; }
+
+section[id] { scroll-margin-top: 4.5rem; }
+
+.chart-box { height: 380px; }
+
+#status { display: none; }
+
+.home-block { background: #1f2d3d; }
+
+.room-card { border: 1px solid #e2e8f0; }
