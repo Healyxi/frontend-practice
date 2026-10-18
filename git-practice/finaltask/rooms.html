@@ -32,30 +32,72 @@
     <div class="container py-5">
       <p class="text-primary small fw-semibold text-uppercase mb-1">Room Finder</p>
       <h1 class="h2 fw-bold mb-2">自习室查询</h1>
-      <p class="text-secondary mb-0">按楼层和楼名查找自习室，查看状态、开放时间与剩余空座。</p>
+      <p class="text-secondary mb-0">
+        按楼名、楼层、开放状态和空座数组合筛选，也可以收藏常去的自习室。
+      </p>
     </div>
   </header>
 
   <main class="container py-5">
     <div id="roomStatus" class="alert alert-info" role="alert" hidden></div>
 
-    <section class="card border mb-4" aria-labelledby="filterTitle">
+    <section class="card filter-card mb-4" aria-labelledby="filterTitle">
       <div class="card-body p-4">
         <h2 class="visually-hidden" id="filterTitle">筛选条件</h2>
 
-        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
-          <span class="small text-secondary me-1">楼层</span>
-          <button type="button" class="btn btn-sm btn-primary" data-filter="all">全部</button>
-          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="1">1 层</button>
-          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="2">2 层</button>
-          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="3">3 层</button>
-          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="4">4 层</button>
+        <div class="row g-3 align-items-start">
+          <div class="col-lg-4">
+            <label class="form-label small fw-semibold" for="keyword">搜索楼名或自习室名称</label>
+            <input type="search" id="keyword" class="form-control" autocomplete="off"
+                   placeholder="例如：图书馆、楠苑">
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <label class="form-label small fw-semibold" for="floor">楼层</label>
+            <select id="floor" class="form-select">
+              <option value="all">全部楼层</option>
+              <option value="1">1 层</option>
+              <option value="2">2 层</option>
+              <option value="3">3 层</option>
+              <option value="4">4 层</option>
+            </select>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <label class="form-label small fw-semibold" for="status">状态</label>
+            <select id="status" class="form-select">
+              <option value="all">全部状态</option>
+              <option value="开放">开放</option>
+              <option value="维修">维修</option>
+              <option value="闭馆">闭馆</option>
+            </select>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <label class="form-label small fw-semibold" for="minFree">最低空座</label>
+            <input type="number" id="minFree" class="form-control"
+                   min="0" max="200" step="1" placeholder="例如 20"
+                   aria-describedby="minFreeFeedback">
+            <div class="invalid-feedback" id="minFreeFeedback"></div>
+          </div>
+
+          <div class="col-6 col-lg-2 d-flex align-items-lg-end">
+            <div class="form-check form-switch mb-0 pb-lg-2">
+              <input class="form-check-input" type="checkbox" id="favoritesOnly">
+              <label class="form-check-label small" for="favoritesOnly">只看我的收藏</label>
+            </div>
+          </div>
         </div>
 
-        <label class="form-label small fw-semibold" for="keyword">搜索楼名或自习室名称</label>
-        <input type="search" id="keyword" class="form-control" autocomplete="off"
-               placeholder="例如：图书馆、楠苑">
-        <p class="small text-secondary mt-2 mb-0" id="result-count">正在加载……</p>
+        <p class="filter-hint mt-3 mb-0">
+          最低空座只对开放中的自习室生效。输入范围是 0 到 200。
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 align-items-center mt-3">
+          <p class="small text-secondary mb-0" id="result-count">正在加载……</p>
+          <p class="small text-secondary mb-0" id="favorite-count">已收藏 0 间</p>
+          <button type="button" id="clearFilters" class="btn btn-link btn-sm p-0">清除筛选</button>
+        </div>
       </div>
     </section>
 

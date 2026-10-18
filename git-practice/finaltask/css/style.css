@@ -146,6 +146,32 @@ html {
   background: #fff;
 }
 
+.filter-card {
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.filter-hint {
+  color: #6c757d;
+  font-size: 0.78rem;
+}
+
+.favorite-button {
+  flex: 0 0 auto;
+  min-width: 84px;
+}
+
+.room-card .progress {
+  height: 8px;
+  border-radius: 999px;
+  background: #e9ecef;
+}
+
+.room-card .progress-bar {
+  border-radius: 999px;
+}
+
 :focus-visible {
   outline: 3px solid rgba(13, 110, 253, 0.25);
   outline-offset: 2px;
