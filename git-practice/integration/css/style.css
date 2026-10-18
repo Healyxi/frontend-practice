@@ -9,4 +9,8 @@ section[id] {
 
 .chart-box { height: 360px; }
 
+@media (max-width: 575px) {
+  .chart-box { height: 440px; }
+}
+
 #status { display: none; }

@@ -3,11 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>校园三维导览</title>
+  <title>校园三维导览 迷你版校园信息中心</title>
+  <link rel="icon" href="data:,">
+  <script src="../libs/aframe.min.js"></script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    body { font-family: system-ui, "Microsoft YaHei", sans-serif; }
+
+    #hud {
+      position: fixed; left: 16px; top: 16px; z-index: 9999;
+      background: rgba(15, 22, 32, .72); color: #fff;
+      padding: 12px 16px; border-radius: 10px; max-width: 260px;
+    }
+    #hud h1 { font-size: 16px; margin: 0 0 6px; }
+    #hud p { font-size: 12px; margin: 0 0 8px; line-height: 1.6; color: #cfd8e3; }
+    #hud .legend { margin-bottom: 10px; }
+    #hud a {
+      color: #7fd1ff; font-size: 14px; font-weight: 600;
+      text-decoration: none; border-bottom: 1px solid transparent;
+    }
+    #hud a:hover, #hud a:focus { border-bottom-color: #7fd1ff; }
+
+    @media (max-width: 575px) {
+      #hud {
+        left: 8px; right: 64px; bottom: 8px; top: auto;
+        max-width: none; padding: 8px 12px;
+      }
+      #hud h1 { font-size: 13px; margin-bottom: 2px; }
+      #hud p { font-size: 11px; margin-bottom: 4px; }
+      #hud .legend { display: none; }
+      #hud a { font-size: 13px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>校园三维导览</h1>
-  <p>本页将在第3次提交中替换为 Three.js 场景。</p>
-  <p><a href="../index.html">返回首页</a></p>
+  <div id="hud">
+    <h1>校园三维导览</h1>
+    <p>按住鼠标左键拖动转视角，W A S D 移动。</p>
+    <p class="legend">白墙红顶＝教学楼<br>红色旗面＝旗杆<br>黄色球＝路灯</p>
+    <a href="../index.html">← 返回首页</a>
+  </div>
+  <a-scene fog="type: exponential; density: 0.015; color: #aee3f7">
+    <a-sky color="#aee3f7"></a-sky>
+    <a-plane
+      position="0 0 -4" rotation="-90 0 0"
+      width="60" height="60" color="#7cb342">
+    </a-plane>
+
+    <!-- 校前小路，让画面有“入口”的方向感 -->
+    <a-plane
+      position="0 0.01 1" rotation="-90 0 0"
+      width="2.2" height="10" color="#cfd8dc">
+    </a-plane>
+
+    <a-box position="0 1.2 -6" width="4" height="2.4" depth="2" color="#efeeee"></a-box>
+    <a-box position="0 2.7 -6" width="4.4" height="0.4" depth="2.4" color="#b71c1c"></a-box>
+
+    <a-cylinder position="3 1.8 -5" radius="0.05" height="3.6" color="#9e9e9e"></a-cylinder>
+    <a-box
+      position="3.35 3.3 -5" width="0.7" height="0.45" depth="0.03" color="#e53935"
+      animation="property: position; to: 3.4 3.3 -5; dir: alternate; dur: 900; loop: true">
+    </a-box>
+
+    <a-cylinder position="-3 1.2 -4" radius="0.06" height="2.4" color="#616161"></a-cylinder>
+    <a-sphere position="-3 2.5 -4" radius="0.18" color="#fff59d"
+              animation="property: scale; to: 1.3 1.3 1.3; dir: alternate; dur: 1200; loop: true">
+    </a-sphere>
+    <a-light type="point" position="-3 2.6 -4" color="#fff59d" intensity="0.6"></a-light>
+
+    <a-light type="ambient" color="#ffffff" intensity="0.7"></a-light>
+
+    <a-camera id="main-camera" position="0 1.8 2"></a-camera>
+  </a-scene>
+
+  <script>
+    const cam = document.querySelector('#main-camera');
+    const fitCamera = () => {
+      const portrait = window.innerWidth / window.innerHeight < 1;
+      cam.setAttribute('camera', 'fov', portrait ? 88 : 60);
+      cam.setAttribute('position', portrait ? '0 1.8 4.3' : '0 1.8 2');
+    };
+    fitCamera();
+    window.addEventListener('resize', fitCamera);
+  </script>
 </body>
 </html>

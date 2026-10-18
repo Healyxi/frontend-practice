@@ -73,13 +73,15 @@ const renderBarChart = (data) => {
   if (barChart === null) {
     barChart = echarts.init(document.querySelector('#bar-chart'));
   }
+  // 窄屏放不下 12 个长名字，标签竖起来并缩小字号
+  const narrow = document.querySelector('#bar-chart').clientWidth < 600;
   barChart.setOption({
     title: { text: '各自习室使用量（单位：人）', left: 'center' },
     tooltip: { trigger: 'axis' },
-    grid: { bottom: 80 },
+    grid: { bottom: narrow ? 140 : 95 },
     xAxis: {
       data: data.rooms.map(r => r.name),
-      axisLabel: { interval: 0, rotate: 30, fontSize: 10 }
+      axisLabel: { interval: 0, rotate: narrow ? 60 : 30, fontSize: narrow ? 8 : 10 }
     },
     yAxis: { name: '人' },
     series: [{
@@ -102,7 +104,10 @@ $('#open-only').on('change', function () {
 });
 
 window.addEventListener('resize', () => {
-  if (barChart) barChart.resize();
+  if (barChart) {
+    barChart.resize();
+    if (state.data) renderBarChart(state.data);
+  }
 });
 
 render();
