@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据统记 校园自习室信息中心</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">校园自习室信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="rooms.html">自习室</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="stats.html">统计</a></li>
+          <li class="nav-item"><a class="nav-link" href="three-d/scene.html">三维校园</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="border-bottom bg-white">
+    <div class="container py-5">
+      <p class="text-primary small fw-semibold text-uppercase mb-1">Data Dashboard</p>
+      <h1 class="h2 fw-bold mb-2">数据统计</h1>
+      <p class="text-secondary mb-0">把借阅趋势与自习室上座率放在同一页比较。</p>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div id="pageStatus" class="alert alert-info" role="alert" hidden></div>
+
+    <section class="row g-3 mb-4" id="cards" aria-label="数据摘要"></section>
+
+    <section class="card border mb-4">
+      <div class="card-body p-4">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label small fw-semibold" for="category">折线图分类</label>
+            <select id="category" class="form-select">
+              <option value="全部">全部分类</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="open-only" checked>
+              <label class="form-check-label small" for="open-only">柱状图只看开放自习室</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="row g-4">
+      <div class="col-xl-7">
+        <section class="card h-100">
+          <div class="card-body p-4">
+            <h2 class="h5 mb-1">各分类借阅量趋势</h2>
+            <p class="small text-secondary mb-3">ECharts 折线图 单位：册</p>
+            <div id="line-chart" class="chart-box" role="img"
+                 aria-label="各分类借阅量随时间变化的折线图"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="col-xl-5">
+        <section class="card h-100">
+          <div class="card-body p-4">
+            <h2 class="h5 mb-1">自习室上座率</h2>
+            <p class="small text-secondary mb-3">Chart.js 横向柱状图 单位：%</p>
+            <div class="chart-box chart-box--canvas">
+              <canvas id="roomBar" role="img" aria-label="各自习室上座率横向柱状图"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <p class="small text-secondary mt-4 mb-0" id="chart-data-source"></p>
+  </main>
+
+  <footer class="site-footer border-top py-4">
+    <div class="container small text-secondary">软件开发综合实践 数据可视化模块</div>
+  </footer>
+
+  <script src="libs/jquery-3.7.1.min.js"></script>
+  <script src="libs/bootstrap.bundle.min.js"></script>
+  <script src="libs/echarts.min.js"></script>
+  <script src="libs/chart.umd.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/stats.js"></script>
+</body>
+</html>

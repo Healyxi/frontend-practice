@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自习室查询｜校园自习室信息中心</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">校园自习室信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="rooms.html">自习室</a></li>
+          <li class="nav-item"><a class="nav-link" href="stats.html">统计</a></li>
+          <li class="nav-item"><a class="nav-link" href="three-d/scene.html">三维校园</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="border-bottom bg-white">
+    <div class="container py-5">
+      <p class="text-primary small fw-semibold text-uppercase mb-1">Room Finder</p>
+      <h1 class="h2 fw-bold mb-2">自习室查询</h1>
+      <p class="text-secondary mb-0">按楼层和楼名查找自习室，查看状态、开放时间与剩余空座。</p>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div id="roomStatus" class="alert alert-info" role="alert" hidden></div>
+
+    <section class="card border mb-4" aria-labelledby="filterTitle">
+      <div class="card-body p-4">
+        <h2 class="visually-hidden" id="filterTitle">筛选条件</h2>
+
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+          <span class="small text-secondary me-1">楼层</span>
+          <button type="button" class="btn btn-sm btn-primary" data-filter="all">全部</button>
+          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="1">1 层</button>
+          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="2">2 层</button>
+          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="3">3 层</button>
+          <button type="button" class="btn btn-sm btn-outline-primary" data-filter="4">4 层</button>
+        </div>
+
+        <label class="form-label small fw-semibold" for="keyword">搜索楼名或自习室名称</label>
+        <input type="search" id="keyword" class="form-control" autocomplete="off"
+               placeholder="例如：图书馆、楠苑">
+        <p class="small text-secondary mt-2 mb-0" id="result-count">正在加载……</p>
+      </div>
+    </section>
+
+    <div class="row g-3" id="room-list" aria-live="polite"></div>
+    <p class="small text-secondary mt-4 mb-0" id="room-data-source"></p>
+  </main>
+
+  <footer class="site-footer border-top py-4">
+    <div class="container small text-secondary">软件开发综合实践 自习室查询模块</div>
+  </footer>
+
+  <script src="libs/jquery-3.7.1.min.js"></script>
+  <script src="libs/bootstrap.bundle.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/rooms.js"></script>
+</body>
+</html>

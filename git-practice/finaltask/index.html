@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园自习室信息中心</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="libs/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">校园自习室信息中心</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#mainNav" aria-controls="mainNav"
+              aria-expanded="false" aria-label="展开导航">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">首页</a></li>
+          <li class="nav-item"><a class="nav-link" href="rooms.html">自习室</a></li>
+          <li class="nav-item"><a class="nav-link" href="stats.html">统计</a></li>
+          <li class="nav-item"><a class="nav-link" href="three-d/scene.html">三维校园</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container py-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="hero-badge">CAMPUS STUDY SPACE</span>
+          <h1 class="display-5 fw-bold mt-3 mb-3">先看空座，再决定去哪儿自习。</h1>
+          <p class="lead text-secondary mb-4">
+            汇总校园自习室的开放状态、座位使用情况与楼栋位置，
+            用查询、图表和三维导览回答“现在去哪里自习”。
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary px-4" href="rooms.html">查询自习室</a>
+            <a class="btn btn-outline-secondary px-4" href="stats.html">查看数据</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="hero-panel">
+            <p class="small text-uppercase text-primary fw-semibold mb-2">今日概况</p>
+            <h2 class="h4 mb-3">一张图看懂校园座位</h2>
+            <p class="text-secondary mb-0">
+              首页数据来自 <code>data/studyrooms.json</code>，与自习室列表、
+              统计图表和三维场景使用同一份课程数据。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="pageStatus" class="alert alert-danger mt-4" role="alert" hidden></div>
+
+      <div class="row g-3 mt-1">
+        <div class="col-md-4">
+          <div class="stat-card">
+            <p class="stat-label">自习室总数</p>
+            <p class="stat-value" id="sum-total">—</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <p class="stat-label">当前开放</p>
+            <p class="stat-value" id="sum-open">—</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stat-card">
+            <p class="stat-label">开放区剩余空座</p>
+            <p class="stat-value" id="sum-free">—</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="small text-secondary mt-3 mb-0" id="data-note">正在读取自习室数据……</p>
+    </div>
+  </header>
+
+  <main class="container py-5">
+    <div class="d-flex flex-column flex-md-row gap-2 justify-content-between align-items-md-end mb-4">
+      <div>
+        <p class="text-primary small fw-semibold text-uppercase mb-1">功能入口</p>
+        <h2 class="h3 mb-0">从列表到空间</h2>
+      </div>
+      <p class="small text-secondary mb-0">四个页面共享导航和同一套数据口径。</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <article class="card feature-card h-100">
+          <div class="card-body p-4">
+            <span class="feature-number">01</span>
+            <h3 class="h5 mt-3">自习室查询</h3>
+            <p class="small text-secondary">
+              按楼层和楼名查找自习室，查看开放时间、座位和剩余空座。
+            </p>
+            <a class="small fw-semibold" href="rooms.html">进入查询</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card feature-card h-100">
+          <div class="card-body p-4">
+            <span class="feature-number">02</span>
+            <h3 class="h5 mt-3">数据统计</h3>
+            <p class="small text-secondary">
+              用折线图观察借阅趋势，用柱状图比较各自习室的上座率。
+            </p>
+            <a class="small fw-semibold" href="stats.html">查看统计</a>
+          </div>
+        </article>
+      </div>
+      <div class="col-md-4">
+        <article class="card feature-card h-100">
+          <div class="card-body p-4">
+            <span class="feature-number">03</span>
+            <h3 class="h5 mt-3">三维校园</h3>
+            <p class="small text-secondary">
+              从空间角度辨认图书馆、宿舍区和教学楼的位置关系。
+            </p>
+            <a class="small fw-semibold" href="three-d/scene.html">进入三维场景</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer border-top py-4">
+    <div class="container d-flex flex-column flex-md-row gap-2 justify-content-between small text-secondary">
+      <span>软件开发综合实践 期末大作业</span>
+      <span>课程教学模拟数据</span>
+    </div>
+  </footer>
+
+  <script src="libs/jquery-3.7.1.min.js"></script>
+  <script src="libs/bootstrap.bundle.min.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
